@@ -1,0 +1,18 @@
+---
+import HeaderLink from './HeaderLink.astro';
+const  SITE_TITLE = "Avions"
+import ThemeIcon from './ThemeIcon.astro';
+import "../styles/global.css"
+---
+
+<header class="flex items-center justify-center">
+	<nav class="bg-primaryblue rounded-xl w-dvw  flex items-center justify-between">
+		<h2 class=" text-black border-b-4 border-solid border-b-transparent" ><a  href="/" >{SITE_TITLE}</a></h2>
+		<div class="">
+			<HeaderLink href="/">Home</HeaderLink>
+			<HeaderLink href="/blog">Blog</HeaderLink>
+			<HeaderLink href="/about">About</HeaderLink>
+		</div>
+		<ThemeIcon/>
+	</nav>
+</header>

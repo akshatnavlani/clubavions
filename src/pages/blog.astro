@@ -1,0 +1,25 @@
+---
+import "../styles/global.css";
+import { getCollection } from "astro:content";
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro'
+import BlogPost from "../components/BlogPost.astro";
+const allPosts = await getCollection("blog");
+---
+
+<html lang="en">
+	<head>
+		<title>Astro</title>
+	</head>
+	<body>
+        <Header/>
+        <!-- All tags -->
+        <!-- Blogs should be listed in a grid-->
+        <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {allPosts.map((post: any) =><BlogPost url={`/blogs/${post.id}/`} title={post.data.title} />)}
+        </ul>
+        <Footer/>
+        <script>
+  </script>
+    </body>
+</html>

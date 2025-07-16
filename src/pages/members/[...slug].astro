@@ -1,0 +1,17 @@
+---
+import { getCollection, render } from 'astro:content';
+import MemberPostLayout from '../../layout/MemberPostLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('member');
+  return posts.map(post => ({
+    params: { slug: post.id }, props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<MemberPostLayout frontmatter={post.data}>
+  <Content />
+</MemberPostLayout>
