@@ -3,7 +3,7 @@ import BaseLayout from './BaseLayout.astro';
 const { frontmatter } = Astro.props;
 import "../styles/global.css"
 import "../styles/markdown-theme.css"
-const baseImagePath = '../../src/assets/blogImages/';
+const baseImagePath = '/blogImages/';
 const imageSrc = `${baseImagePath}${frontmatter.image.src}`;
 const author= frontmatter.author
 
