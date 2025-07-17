@@ -1,27 +1,49 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import { Image } from 'astro:assets';
 const { frontmatter } = Astro.props;
 import "../styles/global.css"
 import "../styles/markdown-theme.css"
-const baseImagePath = '/memberImages/';
-const imageSrc = `${baseImagePath}${frontmatter.image.src}`;
+
+// Dynamic import for member images
+const images = import.meta.glob('/src/assets/memberImages/*', { eager: true });
+const getImagePath = (imageName: string) => {
+  const imagePath = `/src/assets/memberImages/${imageName}`;
+  return images[imagePath]?.default || null;
+};
+
+const imageSrc = getImagePath(frontmatter.image.src);
 ---
+
 <BaseLayout pageTitle={frontmatter.name}>
   <p><em>{frontmatter.description}</em></p>
-    <p>{frontmatter.joinYear}</p>
-<div>
-  <img src={imageSrc} width="300" class="rounded-4xl m-4 left-3/6" alt={frontmatter.image.alt} />
-</div>
+  <p>{frontmatter.joinYear}</p>
+  
+  <div>
+    {imageSrc && (
+      <Image 
+        src={imageSrc} 
+        width={300} 
+        height={200}
+        class="rounded-4xl m-4 left-3/6" 
+        alt={frontmatter.image.alt}
+        format="webp"
+        quality="mid"
+      />
+    )}
+  </div>
+  
   <div class="tags">
     {frontmatter.events.map((event: string) => (
       <p class="tag"><a href={`/events/${event}`}>{event}</a></p>
     ))}
   </div>
+  
   <div class="markdown-body">
-  <slot  />
-
+    <slot />
   </div>
 </BaseLayout>
+
 <style>
   a {
     color: #00539F;
@@ -40,6 +62,4 @@ const imageSrc = `${baseImagePath}${frontmatter.image.src}`;
     font-size: 1.15em;
     background-color: #F8FCFD;
   }
-
-
 </style>
