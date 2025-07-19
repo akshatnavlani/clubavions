@@ -7,7 +7,7 @@ image:
     src: akshat.JPG
     #Mention only the image file name, the route will be dynamically managed
     alt: Akshat
-events: ["ADDC"]
+events: ["ADDC", "DDC 2024"]
 ---
 
 # Flying High with Avions ✈️

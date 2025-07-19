@@ -15,9 +15,11 @@ const allPosts = await getCollection("blog");
         <Header/>
         <!-- All tags -->
         <!-- Blogs should be listed in a grid-->
-        <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {allPosts.map((post: any) =><BlogPost url={`/blogs/${post.id}/`} title={post.data.title} />)}
+        <div class="px-4 py-8 sm:px-6 lg:px-12 max-w-screen-xl mx-auto">
+        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {allPosts.map((post: any) =><BlogPost url={`/blogs/${post.id}/`} frontmatter={post.data}  />)}
         </ul>
+        </div>
         <Footer/>
         <script>
   </script>

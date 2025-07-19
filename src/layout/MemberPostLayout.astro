@@ -4,12 +4,12 @@ import { Image } from 'astro:assets';
 const { frontmatter } = Astro.props;
 import "../styles/global.css"
 import "../styles/markdown-theme.css"
-
+import { slugify } from '../util/slugify';
 // Dynamic import for member images
 const images = import.meta.glob('/src/assets/memberImages/*', { eager: true });
 const getImagePath = (imageName: string) => {
   const imagePath = `/src/assets/memberImages/${imageName}`;
-  return images[imagePath]?.default || null;
+  return (images[imagePath] as any)?.default || null;
 };
 
 const imageSrc = getImagePath(frontmatter.image.src);
@@ -33,9 +33,9 @@ const imageSrc = getImagePath(frontmatter.image.src);
     )}
   </div>
   
-  <div class="tags">
+  <div class="events">
     {frontmatter.events.map((event: string) => (
-      <p class="tag"><a href={`/events/${event}`}>{event}</a></p>
+      <p class="event"><a href={`/events/${slugify(event)}`}>{event}</a></p>
     ))}
   </div>
   

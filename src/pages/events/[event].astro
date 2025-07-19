@@ -1,0 +1,60 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../layout/BaseLayout.astro";
+import BlogPost from "../../components/BlogPost.astro";
+import { slugify } from "../../util/slugify";
+
+export async function getStaticPaths() {
+  const allMembers = await getCollection("member");
+  const allBlogs = await getCollection("blog");
+
+  // Properly typed and filtered unique events
+  const uniqueEvents = [
+    ...new Set(
+      allMembers
+        .map((post: CollectionEntry<"member">) => post.data.events)
+        .flat()
+    ),
+  ].filter((e): e is string => typeof e === "string");
+
+  return uniqueEvents.map((event: string) => {
+    const eventSlug = slugify(event);
+
+    const filteredMembers = allMembers.filter((post: CollectionEntry<"member">) =>
+      post.data.events?.includes(event)
+    );
+
+    const relatedBlogs = allBlogs.filter((post: CollectionEntry<"blog">) =>
+      post.data.tags?.some((tag) => slugify(tag).includes(eventSlug))
+    );
+
+    return {
+      params: { event: eventSlug },
+      props: {
+        members: filteredMembers,
+        blogs: relatedBlogs,
+        originalEventName: event,
+      },
+    };
+  });
+}
+
+const { event } = Astro.params;
+const { members, blogs, originalEventName } = Astro.props;
+---
+
+<BaseLayout pageTitle={`Event: ${originalEventName}`}>
+  <h2>Members involved in {originalEventName}</h2>
+  <ul>
+    {members.map((post) => (
+      <BlogPost url={`/members/${post.id}/`} title={post.data.name} />
+    ))}
+  </ul>
+
+  <h2>Blog Posts related to {originalEventName}</h2>
+  <ul>
+    {blogs.map((post) => (
+      <BlogPost url={`/blogs/${post.id}/`} title={post.data.title} />
+    ))}
+  </ul>
+</BaseLayout>

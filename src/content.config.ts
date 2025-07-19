@@ -27,7 +27,7 @@ const member = defineCollection({
         src: z.string(),
         alt: z.string()
       }).optional(),
-      events: z.array(z.string())
+      events: z.array(z.string()).optional()
     })
 });
 // Export a single `collections` object to register your collection(s)

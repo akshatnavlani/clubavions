@@ -6,7 +6,7 @@ pubDate: 2025-07-15
 image:
     src: addcTeam.jpeg
     alt: addcTeam
-tags: ["addc",drone]
+tags: ["addc","Drone"]
 ---
 
 

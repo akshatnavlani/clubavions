@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import { slugify } from '../util/slugify';
 import { Image } from 'astro:assets';
 const { frontmatter } = Astro.props;
 import "../styles/global.css"
@@ -9,7 +10,7 @@ import "../styles/markdown-theme.css"
 const images = import.meta.glob('/src/assets/blogImages/*', { eager: true });
 const getImagePath = (imageName: string) => {
   const imagePath = `/src/assets/blogImages/${imageName}`;
-  return images[imagePath]?.default || null;
+  return (images[imagePath] as any)?.default || null;
 };
 
 const imageSrc = getImagePath(frontmatter.image.src);
@@ -19,8 +20,8 @@ const author = frontmatter.author;
 <BaseLayout pageTitle={frontmatter.title}>
   <p><em>{frontmatter.description}</em></p>
   <p>{frontmatter.pubDate.toLocaleDateString()}</p>
-  <p><a href={`/members/${author.toLowerCase()}`}>Written by: {author}</a></p>
-  
+  <p><a href={`/members/${slugify(author)}`}>Written by: {author}</a></p>
+
   <div>
     {imageSrc && (
       <Image 
@@ -37,7 +38,7 @@ const author = frontmatter.author;
   
   <div class="tags">
     {frontmatter.tags.map((tag: string) => (
-      <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>
+      <p class="tag"><a href={`/tags/${slugify(tag)}`}>{tag}</a></p>
     ))}
   </div>
   
