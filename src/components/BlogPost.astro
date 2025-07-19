@@ -2,6 +2,7 @@
 const { url, frontmatter } = Astro.props;
 import "../styles/global.css";
 import { Image } from 'astro:assets';
+import { Calendar, User, ArrowRight } from 'lucide-react';
 
 const images = import.meta.glob('/src/assets/blogImages/*', { eager: true });
 const getImagePath = (imageName: string) => {
@@ -12,49 +13,89 @@ const getImagePath = (imageName: string) => {
 const imageSrc = getImagePath(frontmatter.image.src);
 ---
 
-<a href={url} class="block w-full sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto">
-  <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 transition-transform hover:scale-[1.01] duration-200 ease-in-out">
-    
+<article class="card group overflow-hidden h-full flex flex-col">
+  <a href={url} class="block flex-1 flex flex-col">
     <!-- Image Section -->
     {imageSrc && (
-      <div class="w-full aspect-[16/9] sm:aspect-[4/3] md:aspect-[3/2] overflow-hidden">
+      <div class="relative overflow-hidden aspect-[16/9]">
         <Image 
           src={imageSrc}
           width={800}
           height={450}
-          class="object-cover w-full h-full"
+          class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
           alt={frontmatter.image.alt}
           format="webp"
           quality="mid"
         />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       </div>
     )}
     
-    <!-- Text Section -->
-    <div class="p-4 sm:p-5">
+    <!-- Content Section -->
+    <div class="p-6 flex-1 flex flex-col">
+      <!-- Meta Information -->
+      <div class="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-3">
+        <div class="flex items-center gap-1">
+          <Calendar className="w-4 h-4" />
+          <time datetime={frontmatter.pubDate.toISOString()}>
+            {frontmatter.pubDate.toLocaleDateString('en-US', { 
+              year: 'numeric', 
+              month: 'short', 
+              day: 'numeric' 
+            })}
+          </time>
+        </div>
+        <div class="flex items-center gap-1">
+          <User className="w-4 h-4" />
+          <span>{frontmatter.author}</span>
+        </div>
+      </div>
+      
       <!-- Title -->
-      <h2 class="text-lg sm:text-xl font-bold text-gray-800 dark:text-white mb-1">
+      <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
         {frontmatter.title}
-      </h2>
+      </h3>
       
       <!-- Description -->
-      <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-3 line-clamp-2">
+      <p class="text-gray-600 dark:text-gray-300 mb-4 flex-1 line-clamp-3">
         {frontmatter.description}
       </p>
       
       <!-- Tags -->
-      <div class="flex flex-wrap gap-2 mb-3">
-        {frontmatter.tags?.map((tag: string) => (
-          <span class="bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-100 text-xs px-2 py-1 rounded">
+      <div class="flex flex-wrap gap-2 mb-4">
+        {frontmatter.tags?.slice(0, 3).map((tag: string) => (
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300">
             {tag}
           </span>
         ))}
+        {frontmatter.tags?.length > 3 && (
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">
+            +{frontmatter.tags.length - 3} more
+          </span>
+        )}
       </div>
       
-      <!-- Author -->
-      <p class="text-sm text-right text-gray-500 dark:text-gray-400">
-        by {frontmatter.author}
-      </p>
+      <!-- Read More -->
+      <div class="flex items-center text-blue-600 dark:text-blue-400 font-medium group-hover:gap-2 transition-all">
+        <span>Read More</span>
+        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+      </div>
     </div>
-  </div>
-</a>
+  </a>
+</article>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

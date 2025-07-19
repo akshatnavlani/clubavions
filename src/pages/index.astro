@@ -1,14 +1,322 @@
 ---
 import "../styles/global.css"
 import BaseLayout from "../layout/BaseLayout.astro"
+import { getCollection } from "astro:content";
+import { 
+  Plane, 
+  Users, 
+  Trophy, 
+  Rocket, 
+  ArrowRight, 
+  Star,
+  Calendar,
+  MapPin,
+  ChevronRight
+} from 'lucide-react';
+import BlogPost from "../components/BlogPost.astro";
+
+const allPosts = await getCollection("blog");
+const recentPosts = allPosts.slice(0, 3);
 ---
 
 <BaseLayout pageTitle="Home">
-	<div class="h-dvh w-dvw bg-amber-950/80"></div>
-	<!-- Hero section -->
-	<!-- Club Events(things the club is doing) -->
-	<!-- Benefits section -->
-	<!-- Members section -->
-	<!-- Testimonial section -->
-	</BaseLayout>
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-white to-cyan-50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute top-20 left-20 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+      <div class="absolute top-40 right-20 w-72 h-72 bg-cyan-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-1000"></div>
+      <div class="absolute bottom-20 left-1/2 w-72 h-72 bg-blue-600 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-2000"></div>
+    </div>
 
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center animate-fade-in-up">
+        <!-- Logo/Icon -->
+        <div class="flex justify-center mb-8">
+          <div class="p-4 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-2xl shadow-xl">
+            <Plane className="w-16 h-16 text-white" />
+          </div>
+        </div>
+
+        <!-- Main Heading -->
+        <h1 class="text-display gradient-text mb-6 max-w-4xl mx-auto">
+          Soaring Beyond Limits with <span class="text-blue-600 dark:text-blue-400">Avions</span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="text-body-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+          Join our aerospace and drone engineering club where innovation meets the sky. 
+          Build, fly, and compete with cutting-edge UAV technology.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+          <a href="/about" class="btn btn-primary">
+            <Users className="w-5 h-5" />
+            Join Our Team
+          </a>
+          <a href="/blog" class="btn btn-secondary">
+            <Rocket className="w-5 h-5" />
+            Explore Projects
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto">
+          <div class="text-center">
+            <div class="text-h2 font-bold text-blue-600 dark:text-blue-400">50+</div>
+            <div class="text-body text-gray-600 dark:text-gray-400">Successful Flights</div>
+          </div>
+          <div class="text-center">
+            <div class="text-h2 font-bold text-blue-600 dark:text-blue-400">15+</div>
+            <div class="text-body text-gray-600 dark:text-gray-400">Active Members</div>
+          </div>
+          <div class="text-center">
+            <div class="text-h2 font-bold text-blue-600 dark:text-blue-400">5+</div>
+            <div class="text-body text-gray-600 dark:text-gray-400">Competitions Won</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <ChevronRight className="w-6 h-6 text-gray-400 rotate-90" />
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section-padding bg-white dark:bg-gray-900">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-h1 gradient-text mb-4">What We Do</h2>
+        <p class="text-body-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          From autonomous drones to competitive flying, we're pushing the boundaries of aerospace technology
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div class="card p-8 text-center group">
+          <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+            <Rocket className="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-h3 mb-4 text-gray-900 dark:text-white">Autonomous Systems</h3>
+          <p class="text-body text-gray-600 dark:text-gray-300">
+            Design and build fully autonomous drones capable of navigation, obstacle avoidance, and precision delivery.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="card p-8 text-center group">
+          <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+            <Trophy className="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-h3 mb-4 text-gray-900 dark:text-white">Competitions</h3>
+          <p class="text-body text-gray-600 dark:text-gray-300">
+            Participate in national and international drone competitions, showcasing our engineering excellence.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="card p-8 text-center group">
+          <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+            <Users className="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-h3 mb-4 text-gray-900 dark:text-white">Team Collaboration</h3>
+          <p class="text-body text-gray-600 dark:text-gray-300">
+            Work with passionate engineers across hardware, software, and flight dynamics specializations.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Blog Posts -->
+  <section class="section-padding bg-gray-50 dark:bg-gray-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center mb-12">
+        <div>
+          <h2 class="text-h1 gradient-text mb-4">Latest Updates</h2>
+          <p class="text-body-lg text-gray-600 dark:text-gray-300">
+            Stay updated with our latest projects and achievements
+          </p>
+        </div>
+        <a href="/blog" class="btn btn-ghost hidden sm:flex">
+          View All Posts
+          <ArrowRight className="w-4 h-4" />
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {recentPosts.map((post) => (
+          <BlogPost url={`/blogs/${post.id}/`} frontmatter={post.data} />
+        ))}
+      </div>
+
+      <div class="text-center mt-8 sm:hidden">
+        <a href="/blog" class="btn btn-ghost">
+          View All Posts
+          <ArrowRight className="w-4 h-4" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upcoming Events -->
+  <section class="section-padding bg-white dark:bg-gray-900">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-h1 gradient-text mb-4">Upcoming Events</h2>
+        <p class="text-body-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          Join us for workshops, competitions, and collaborative projects
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <!-- Event 1 -->
+        <div class="card p-6 hover:shadow-xl transition-all">
+          <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
+              <Calendar className="w-6 h-6 text-white" />
+            </div>
+            <div class="flex-1">
+              <h3 class="text-h3 mb-2 text-gray-900 dark:text-white">Drone Building Workshop</h3>
+              <div class="flex items-center text-gray-500 dark:text-gray-400 mb-2">
+                <MapPin className="w-4 h-4 mr-1" />
+                <span class="text-body-sm">Engineering Lab, Room 204</span>
+              </div>
+              <p class="text-body text-gray-600 dark:text-gray-300">
+                Learn the fundamentals of drone assembly and programming in this hands-on workshop.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 2 -->
+        <div class="card p-6 hover:shadow-xl transition-all">
+          <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
+              <Trophy className="w-6 h-6 text-white" />
+            </div>
+            <div class="flex-1">
+              <h3 class="text-h3 mb-2 text-gray-900 dark:text-white">Inter-College Competition</h3>
+              <div class="flex items-center text-gray-500 dark:text-gray-400 mb-2">
+                <MapPin className="w-4 h-4 mr-1" />
+                <span class="text-body-sm">Main Campus Ground</span>
+              </div>
+              <p class="text-body text-gray-600 dark:text-gray-300">
+                Showcase your skills in our annual drone racing and autonomous navigation challenge.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="/events" class="btn btn-primary">
+          <Calendar className="w-5 h-5" />
+          View All Events
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section-padding bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-gray-800 dark:to-blue-900">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-h1 gradient-text mb-4">What Our Members Say</h2>
+        <p class="text-body-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          Hear from our passionate team members about their experience with Avions
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Testimonial 1 -->
+        <div class="card p-6">
+          <div class="flex items-center mb-4">
+            {[...Array(5)].map((_, i) => (
+              <Star className="w-5 h-5 text-yellow-400 fill-current" />
+            ))}
+          </div>
+          <p class="text-body text-gray-600 dark:text-gray-300 mb-4">
+            "Joining Avions was the best decision of my college life. The hands-on experience with autonomous systems has been incredible."
+          </p>
+          <div class="flex items-center">
+            <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-full flex items-center justify-center text-white font-semibold">
+              A
+            </div>
+            <div class="ml-3">
+              <div class="font-semibold text-gray-900 dark:text-white">Akshat Navlani</div>
+              <div class="text-body-sm text-gray-500 dark:text-gray-400">Software Lead</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="card p-6">
+          <div class="flex items-center mb-4">
+            {[...Array(5)].map((_, i) => (
+              <Star className="w-5 h-5 text-yellow-400 fill-current" />
+            ))}
+          </div>
+          <p class="text-body text-gray-600 dark:text-gray-300 mb-4">
+            "The collaborative environment and cutting-edge projects have shaped my understanding of aerospace engineering."
+          </p>
+          <div class="flex items-center">
+            <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-full flex items-center justify-center text-white font-semibold">
+              M
+            </div>
+            <div class="ml-3">
+              <div class="font-semibold text-gray-900 dark:text-white">Member Name</div>
+              <div class="text-body-sm text-gray-500 dark:text-gray-400">Hardware Engineer</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="card p-6">
+          <div class="flex items-center mb-4">
+            {[...Array(5)].map((_, i) => (
+              <Star className="w-5 h-5 text-yellow-400 fill-current" />
+            ))}
+          </div>
+          <p class="text-body text-gray-600 dark:text-gray-300 mb-4">
+            "From competitions to real-world applications, Avions provides the perfect platform for innovation."
+          </p>
+          <div class="flex items-center">
+            <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-full flex items-center justify-center text-white font-semibold">
+              T
+            </div>
+            <div class="ml-3">
+              <div class="font-semibold text-gray-900 dark:text-white">Team Member</div>
+              <div class="text-body-sm text-gray-500 dark:text-gray-400">Flight Dynamics</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="section-padding bg-gradient-to-r from-blue-600 to-cyan-500 text-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-h1 mb-4">Ready to Take Flight?</h2>
+      <p class="text-body-lg mb-8 max-w-2xl mx-auto opacity-90">
+        Join our community of innovators and help shape the future of aerospace technology. 
+        Whether you're a beginner or expert, there's a place for you in Avions.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/about" class="btn bg-white text-blue-600 hover:bg-gray-100">
+          <Users className="w-5 h-5" />
+          Join Our Team
+        </a>
+        <a href="/blog" class="btn border-2 border-white text-white hover:bg-white hover:text-blue-600">
+          <Rocket className="w-5 h-5" />
+          Learn More
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

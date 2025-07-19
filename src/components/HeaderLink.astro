@@ -1,14 +1,40 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import "../styles/global.css"
-type Props = HTMLAttributes<'a'>;
 
-const { href, class: className, ...props } = Astro.props;
+type Props = HTMLAttributes<'a'> & {
+  mobile?: boolean;
+};
+
+const { href, class: className, mobile = false, ...props } = Astro.props;
 const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
 const subpath = pathname.match(/[^\/]+/g);
 const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
+
+const baseClasses = mobile 
+  ? "block px-3 py-2 rounded-md text-base font-medium transition-colors"
+  : "text-sm font-medium transition-colors relative";
+
+const activeClasses = mobile
+  ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
+  : "text-blue-600 dark:text-blue-400";
+
+const inactiveClasses = mobile
+  ? "text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white"
+  : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400";
 ---
 
-<a class=" inline active:font-bold active:underline " href={href} class:list={[className, { active: isActive }]} {...props}>
-	<slot />
+<a 
+  href={href} 
+  class:list={[
+    baseClasses,
+    isActive ? activeClasses : inactiveClasses,
+    className
+  ]} 
+  {...props}
+>
+  <slot />
+  {!mobile && isActive && (
+    <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-blue-600 dark:bg-blue-400 rounded-full"></span>
+  )}
 </a>
