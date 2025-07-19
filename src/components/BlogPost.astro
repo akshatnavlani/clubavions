@@ -2,7 +2,6 @@
 const { url, frontmatter } = Astro.props;
 import "../styles/global.css";
 import { Image } from 'astro:assets';
-import { Calendar, User, ArrowRight } from 'lucide-react';
 
 const images = import.meta.glob('/src/assets/blogImages/*', { eager: true });
 const getImagePath = (imageName: string) => {
@@ -36,7 +35,12 @@ const imageSrc = getImagePath(frontmatter.image.src);
       <!-- Meta Information -->
       <div class="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-3">
         <div class="flex items-center gap-1">
-          <Calendar className="w-4 h-4" />
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 2v4"/>
+            <path d="M16 2v4"/>
+            <rect width="18" height="18" x="3" y="4" rx="2"/>
+            <path d="M3 10h18"/>
+          </svg>
           <time datetime={frontmatter.pubDate.toISOString()}>
             {frontmatter.pubDate.toLocaleDateString('en-US', { 
               year: 'numeric', 
@@ -46,7 +50,10 @@ const imageSrc = getImagePath(frontmatter.image.src);
           </time>
         </div>
         <div class="flex items-center gap-1">
-          <User className="w-4 h-4" />
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
           <span>{frontmatter.author}</span>
         </div>
       </div>
@@ -78,7 +85,10 @@ const imageSrc = getImagePath(frontmatter.image.src);
       <!-- Read More -->
       <div class="flex items-center text-blue-600 dark:text-blue-400 font-medium group-hover:gap-2 transition-all">
         <span>Read More</span>
-        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"/>
+          <path d="m12 5 7 7-7 7"/>
+        </svg>
       </div>
     </div>
   </a>

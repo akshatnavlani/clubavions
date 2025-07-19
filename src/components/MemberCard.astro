@@ -1,7 +1,6 @@
 ---
 const { member, url } = Astro.props;
 import { Image } from 'astro:assets';
-import { Calendar, MapPin, ArrowRight } from 'lucide-react';
 
 const images = import.meta.glob('/src/assets/memberImages/*', { eager: true });
 const getImagePath = (imageName: string) => {
@@ -45,7 +44,12 @@ const imageSrc = member.image?.src ? getImagePath(member.image.src) : null;
 
       <!-- Join Year -->
       <div class="flex items-center justify-center gap-1 text-sm text-gray-500 dark:text-gray-400 mb-4">
-        <Calendar className="w-4 h-4" />
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 2v4"/>
+          <path d="M16 2v4"/>
+          <rect width="18" height="18" x="3" y="4" rx="2"/>
+          <path d="M3 10h18"/>
+        </svg>
         <span>Joined {member.joinYear}</span>
       </div>
 
@@ -71,7 +75,10 @@ const imageSrc = member.image?.src ? getImagePath(member.image.src) : null;
       <!-- View Profile -->
       <div class="mt-4 flex items-center justify-center text-blue-600 dark:text-blue-400 font-medium group-hover:gap-2 transition-all">
         <span>View Profile</span>
-        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"/>
+          <path d="m12 5 7 7-7 7"/>
+        </svg>
       </div>
     </div>
   </a>
