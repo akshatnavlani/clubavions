@@ -2,6 +2,7 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 import BaseLayout from "../../layout/BaseLayout.astro";
 import BlogPost from "../../components/BlogPost.astro";
+import MemberCard from "../../components/MemberCard.astro";
 import { slugify } from "../../util/slugify";
 
 export async function getStaticPaths() {
@@ -47,14 +48,14 @@ const { members, blogs, originalEventName } = Astro.props;
   <h2>Members involved in {originalEventName}</h2>
   <ul>
     {members.map((post) => (
-      <BlogPost url={`/members/${post.id}/`} title={post.data.name} />
+      <MemberCard member={post.data} url={`/members/${post.id}/`} />
     ))}
   </ul>
 
   <h2>Blog Posts related to {originalEventName}</h2>
   <ul>
     {blogs.map((post) => (
-      <BlogPost url={`/blogs/${post.id}/`} title={post.data.title} />
+      <BlogPost url={`/blogs/${post.id}/`}  frontmatter={post.data} />
     ))}
   </ul>
 </BaseLayout>

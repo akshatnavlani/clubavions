@@ -1,0 +1,41 @@
+---
+const { member,url } = Astro.props;
+import { Image } from 'astro:assets';
+
+const images = import.meta.glob('/src/assets/memberImages/*', { eager: true });
+const getImagePath = (imageName: string) => {
+  const path = `/src/assets/memberImages/${imageName}`;
+  return (images[path] as any)?.default || null;
+};
+
+const imageSrc = member.image?.src ? getImagePath(member.image.src) : null;
+---
+
+<div
+  class="bg-white dark:bg-gray-900 shadow-md rounded-xl p-6 flex flex-col items-center transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg w-full max-w-xs mx-auto"
+>
+  <!-- Profile Image -->
+  {imageSrc && (
+    <div class="w-24 h-24 rounded-full overflow-hidden mb-4 border-4 border-blue-400 dark:border-blue-600">
+      <Image
+        src={imageSrc}
+        width={96}
+        height={96}
+        class="object-cover w-full h-full"
+        alt={member.image.alt}
+        format="webp"
+        quality="mid"
+      />
+    </div>
+  )}
+
+  <!-- Name -->
+  <h3 class="text-lg font-semibold text-gray-800 dark:text-white text-center">
+    {member.name}
+  </h3>
+
+  <!-- Role -->
+  <p class="text-sm text-gray-600 dark:text-gray-400 text-center mt-1">
+    {member.role}
+  </p>
+</div>
