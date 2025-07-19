@@ -73,47 +73,6 @@ body {
 }
 
 /* Typography Scale */
-.text-display {
-    font-size: 3.75rem;
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.025em;
-}
-
-.text-h1 {
-    font-size: 3rem;
-    font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: -0.025em;
-}
-
-.text-h2 {
-    font-size: 2.25rem;
-    font-weight: 600;
-    line-height: 1.3;
-}
-
-.text-h3 {
-    font-size: 1.875rem;
-    font-weight: 600;
-    line-height: 1.4;
-}
-
-.text-body-lg {
-    font-size: 1.125rem;
-    line-height: 1.7;
-}
-
-.text-body {
-    font-size: 1rem;
-    line-height: 1.6;
-}
-
-.text-body-sm {
-    font-size: 0.875rem;
-    line-height: 1.5;
-}
-
 /* Button Components */
 .btn {
     display: inline-flex;
@@ -276,18 +235,6 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .text-display {
-        font-size: 2.5rem;
-    }
-    
-    .text-h1 {
-        font-size: 2rem;
-    }
-    
-    .text-h2 {
-        font-size: 1.75rem;
-    }
-    
     .section-padding {
         padding: 3rem 0;
     }
