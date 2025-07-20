@@ -26,7 +26,7 @@ export async function getStaticPaths() {
     );
 
     const relatedBlogs = allBlogs.filter((post: CollectionEntry<"blog">) =>
-      post.data.tags?.some((tag) => slugify(tag).includes(eventSlug))
+      post.data.tags?.some((tag) => slugify(tag) === eventSlug)
     );
 
     return {
